@@ -13,7 +13,7 @@ class Janela_principal(ctk.CTk):
         # Inicializa a classe pai / inicializar corretamente a janela.
         super().__init__()
 
-        self.title("Gerenciador de Trabalhos, Provas, Projetos e Atividades")
+        self.title("gerenciamento de Trabalhos, Provas, Projetos e Atividades")
         self.geometry("950x550")
 
 
