@@ -1,5 +1,8 @@
 import customtkinter as ctk
 from tkinter import messagebox
+from PIL import Image
+
+
 from datetime import datetime
 
 FormatoData = "%d/%m/%Y"
@@ -9,12 +12,19 @@ Status_Avaliacao = ["Pendente", "Concluído"]
 
 class Janela_principal(ctk.CTk):
     def __init__(self):
-
+        
         # Inicializa a classe pai / inicializar corretamente a janela.
         super().__init__()
 
         self.title("gerenciamento de Trabalhos, Provas, Projetos e Atividades")
-        self.geometry("950x550")
+
+        largura, altura = 1030, 600
+
+        x = int((self.winfo_screenwidth() - largura) / 2)
+        y = int((self.winfo_screenheight() - altura) / 2)
+        self.geometry(f"{largura}x{altura}+{x}+{y}")
+
+        self.resizable(False, False)
 
 
         # Tema
@@ -208,7 +218,7 @@ class Janela_principal(ctk.CTk):
         # Remover último campo
         def remover_campo():
             if campos:
-                frame_nota = campos.pop()
+                entrada_nota, frame_nota = campos.pop()
                 frame_nota.destroy()
             else:
                 messagebox.showwarning("Atenção", "Não há mais campos para remover.")    
@@ -252,11 +262,185 @@ class Janela_principal(ctk.CTk):
         else:
             for idx, avaliacao in enumerate(self.lista_avaliacoes, 1):
                 linha = f"{idx}°  {avaliacao['titulo']} - {avaliacao['tipo']}  |  {avaliacao['materia']}  |  Data: {avaliacao['data']}  |  Status: {avaliacao['status']}  |  Nota: {avaliacao['nota']}\n"
-                linha += "----------------------------------------------------------------------------------------------------------------------------------------\n"
+                linha += "--------------------------------------------------------------------------------------------------------------\n"
                 self.janela_avaliacoes.insert("end", linha)
         self.janela_avaliacoes.configure(state="disabled")
 
+class Janela_Login(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.title("Login / Cadastro")
 
+        largura, altura = 500, 550
+        x = int((self.winfo_screenwidth() - largura) / 2)
+        y = int((self.winfo_screenheight() - altura) / 2)
+        self.geometry(f"{largura}x{altura}+{x}+{y}")
+
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("green")
+
+        global fonte
+        fonte = ctk.CTkFont(family="Comic Sans MS", size=15, weight="bold")
+
+        # imagem da unimar
+        self.logo = ctk.CTkImage(Image.open("unimar.png"), size=(220, 70))
+        label_logo = ctk.CTkLabel(self, image=self.logo, text="")
+        label_logo.pack(pady=10)
+
+        # botão que alterna entre login e cadastro
+        frame_top = ctk.CTkFrame(self, corner_radius=0)
+        frame_top.pack(pady=5)
+
+        btn_login_frame = ctk.CTkButton(frame_top, text="Login", width=100, command=self.mostrar_login)
+        btn_login_frame.pack(side="left", padx=5)
+
+        btn_cadastro_frame = ctk.CTkButton(frame_top, text="Cadastro", width=100, command=self.mostrar_cadastro)
+        btn_cadastro_frame.pack(side="left", padx=5)
+
+        # frames de login e cadastro
+        self.frame_login = ctk.CTkFrame(self, corner_radius=15)
+        self.frame_cadastro = ctk.CTkFrame(self, corner_radius=15)
+
+        self.frame_login.pack(pady=10, padx=20, fill="both", expand=True)
+        self.frame_cadastro.pack_forget()  
+
+
+        self.criar_frame_login()
+        self.criar_frame_cadastro()
+
+    # frame do login
+    def criar_frame_login(self):
+        label_usuario = ctk.CTkLabel(self.frame_login, text="Usuário:", font=fonte)
+        label_usuario.pack(pady=5)
+        self.entry_usuario_login = ctk.CTkEntry(self.frame_login, placeholder_text="Digite seu usuário")
+        self.entry_usuario_login.pack(pady=5)
+
+        label_senha = ctk.CTkLabel(self.frame_login, text="Senha:", font=fonte)
+        label_senha.pack(pady=5)
+
+        self.entry_senha_login = ctk.CTkEntry(self.frame_login, placeholder_text="Digite sua senha", show="*")
+        self.entry_senha_login.pack(pady=5)
+
+        # Checkbox mostrar senha
+        self.mostrar_senha_var_login = ctk.BooleanVar()
+        chk_mostrar = ctk.CTkCheckBox(self.frame_login, text="Mostrar senha", variable=self.mostrar_senha_var_login, command=self.mostrar_senha_login)
+        chk_mostrar.pack(pady=5)
+
+        btn_login = ctk.CTkButton(self.frame_login, text="Login", width=200, command=self.fazer_login)
+        btn_login.pack(pady=10)
+
+    # frame do cadastro
+    def criar_frame_cadastro(self):
+        label_usuario_cad = ctk.CTkLabel(self.frame_cadastro, text="Usuário:", font=fonte)
+        label_usuario_cad.pack(pady=3)
+        self.entry_usuario_cad = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Digite seu usuário")
+        self.entry_usuario_cad.pack(pady=3)
+
+        label_email = ctk.CTkLabel(self.frame_cadastro, text="Email:", font=fonte)
+        label_email.pack(pady=3)
+        self.entry_email_cad = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Digite seu email")
+        self.entry_email_cad.pack(pady=3)
+
+        label_senha_cad = ctk.CTkLabel(self.frame_cadastro, text="Senha:", font=fonte)
+        label_senha_cad.pack(pady=3)
+        self.entry_senha_cad = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Digite sua senha", show="*") # show="*" para esconder a senha
+        self.entry_senha_cad.pack(pady=3)
+
+        label_confirmar = ctk.CTkLabel(self.frame_cadastro, text="Confirmar senha:", font=fonte)
+        label_confirmar.pack(pady=3)
+        self.entry_confirmar_cad = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Confirme sua senha", show="*")
+        self.entry_confirmar_cad.pack(pady=3)
+
+        # Checkbox mostrar senha cadastro
+        self.mostrar_senha_var_cad = ctk.BooleanVar()
+        check_cadastro = ctk.CTkCheckBox(self.frame_cadastro, text="Mostrar senha", variable=self.mostrar_senha_var_cad, command=self.mostrar_senha_cadastro)
+        check_cadastro.pack(pady=5)
+
+        btn_cadastrar = ctk.CTkButton(self.frame_cadastro, text="Cadastrar", width=200, fg_color="#2196F3", hover_color="#1976D2", command=self.cadastrar_usuario)
+        btn_cadastrar.pack(pady=10)
+
+    # mostrar ou esconder senha
+    def mostrar_senha_login(self):
+        if self.mostrar_senha_var_login.get():
+            self.entry_senha_login.configure(show="")
+        else:
+            self.entry_senha_login.configure(show="*")
+
+    def mostrar_senha_cadastro(self):
+        if self.mostrar_senha_var_cad.get():
+            self.entry_senha_cad.configure(show="")
+            self.entry_confirmar_cad.configure(show="")
+        else:
+            self.entry_senha_cad.configure(show="*")
+            self.entry_confirmar_cad.configure(show="*")
+
+    # mostrar frame correto
+    def mostrar_login(self):
+        self.frame_cadastro.pack_forget()
+        self.frame_login.pack(pady=10, padx=20, fill="both", expand=True)
+
+    def mostrar_cadastro(self):
+        self.frame_login.pack_forget()
+        self.frame_cadastro.pack(pady=10, padx=20, fill="both", expand=True)
+
+    # logar
+    def fazer_login(self):
+        usuario = self.entry_usuario_login.get().strip()
+        senha = self.entry_senha_login.get().strip()
+        try:
+            with open("usuarios.txt", "r") as f:
+                for linha in f:
+                    u, s, email = linha.strip().split(":")
+                    if u == usuario and s == senha:
+                        messagebox.showinfo("Login", f"Bem-vindo {usuario}!")
+                        
+                        # Esconde a janela de login
+                        self.withdraw()
+                        
+                        # Abre a janela principal
+                        app_principal = Janela_principal()
+                        app_principal.mainloop()
+                        
+                        # Depois que a principal fechar, destrói a janela de login
+                        self.destroy()
+                        return
+            messagebox.showerror("Erro", "Usuário ou senha incorretos!")
+        except FileNotFoundError:
+            messagebox.showerror("Erro", "Nenhum usuário cadastrado ainda.")
+
+    # cadatrar
+    def cadastrar_usuario(self):
+        usuario = self.entry_usuario_cad.get().strip()
+        email = self.entry_email_cad.get().strip()
+        senha = self.entry_senha_cad.get().strip()
+        confirmar = self.entry_confirmar_cad.get().strip()
+
+        if not usuario or not email or not senha or not confirmar:
+            messagebox.showwarning("Aviso", "Preencha todos os campos!")
+            return
+
+        if senha != confirmar:
+            messagebox.showerror("Erro", "As senhas não coincidem!")
+            return
+
+        try:
+            with open("usuarios.txt", "r") as f:
+                for linha in f:
+                    u, _, _ = linha.strip().split(":")
+                    if u == usuario:
+                        messagebox.showerror("Erro", "Usuário já existe!")
+                        app = Janela_principal()
+                        app.mainloop()
+                        return
+        except FileNotFoundError:
+            pass
+
+        with open("usuarios.txt", "a") as f:
+            f.write(f"{usuario}:{senha}:{email}\n")
+
+        messagebox.showinfo("Cadastro", "Usuário cadastrado com sucesso!")
+
+# Roda a janela
 if __name__ == "__main__":
-    app = Janela_principal()
+    app = Janela_Login()
     app.mainloop()
