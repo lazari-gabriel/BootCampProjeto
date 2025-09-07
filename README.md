@@ -1,94 +1,126 @@
-# Gerenciador de Trabalhos, Provas, Projetos e Atividades
+# 🎓 Gerenciador de Trabalhos, Provas, Projetos e Atividades  
 
-Aplicativo de desktop desenvolvido em **Python** com **CustomTkinter** para gerenciar matérias e avaliações, incluindo trabalhos, provas, projetos e atividades. Possui funcionalidades para adicionar, remover e visualizar avaliações, além de uma **calculadora de médias integrada** e **login/cadastro de usuários**.
+Aplicativo de desktop desenvolvido em **Python** com **CustomTkinter** para gerenciar matérias e avaliações acadêmicas.  
+Com ele, você pode organizar **trabalhos, provas, projetos e atividades**, além de calcular suas médias de forma prática.  
 
-O sistema oferece uma **interface moderna e intuitiva**, com tema escuro, tornando a organização acadêmica mais prática e visual.
-
----
-
-## Funcionalidades
-
-* **Login e Cadastro de Usuários:** Sistema seguro para múltiplos usuários, armazenando informações em arquivo local (`usuarios.txt`).
-* Adicionar e remover **matérias**.
-* Adicionar e remover **avaliações** (trabalhos, provas, projetos e atividades).
-* Visualizar todas as avaliações cadastradas em uma lista organizada.
-* **Calculadora de média** para suas notas, com suporte a múltiplos campos.
-* Interface moderna com **tema escuro** utilizando CustomTkinter.
+A interface moderna com **tema escuro** proporciona uma experiência intuitiva e agradável.  
 
 ---
 
-## Tecnologias Utilizadas
+## 🚀 Funcionalidades  
 
-* Python 3.x
-* [Tkinter](https://docs.python.org/3/library/tkinter.html) – biblioteca nativa para GUI do Python.
-* [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) – versão estilizada e moderna do Tkinter.
-* [Pillow (PIL)](https://pillow.readthedocs.io/) – para manipulação de imagens no login.
+✅ **Login e Cadastro de Usuários**  
+- Sistema de autenticação seguro para múltiplos usuários.  
+- Armazenamento local em `usuarios.txt`.  
+- Exibição/ocultação de senha.  
+
+✅ **Gerenciamento de Matérias**  
+- Adicionar e remover matérias.  
+- Organização por listas.  
+
+✅ **Gerenciamento de Avaliações**  
+- Adicionar trabalhos, provas, projetos e atividades.  
+- Informar título, tipo, status, data e nota (opcional).  
+- Remover avaliações individualmente.  
+- Listagem clara e organizada de todas as avaliações.  
+
+✅ **Calculadora de Médias Integrada**  
+- Inserção de múltiplas notas.  
+- Adicionar/remover campos dinamicamente.  
+- Cálculo automático da média.  
+
+✅ **Interface Moderna**  
+- Tema escuro com **CustomTkinter**.  
+- Ícones e imagens personalizadas (via **Pillow**).  
+- Layout intuitivo para facilitar a navegação.  
 
 ---
 
-## Instalação
+## 🛠 Tecnologias Utilizadas  
 
-1. Clone este repositório:
+- **Python 3.x**  
+- [Tkinter](https://docs.python.org/3/library/tkinter.html) – GUI nativa do Python  
+- [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) – versão moderna e estilizada do Tkinter  
+- [Pillow (PIL)](https://pillow.readthedocs.io/) – manipulação de imagens no login  
 
+---
+
+## 📥 Instalação  
+
+1. Clone este repositório:  
 ```bash
 git clone https://github.com/seu-usuario/gerenciador-avaliacoes.git
-```
+```  
 
-2. Acesse a pasta do projeto:
-
+2. Acesse a pasta do projeto:  
 ```bash
 cd gerenciador-avaliacoes
-```
+```  
 
-3. Instale as dependências:
-
+3. Instale as dependências:  
 ```bash
 pip install customtkinter pillow
-```
+```  
 
-4. Execute o aplicativo:
-
+4. Execute o aplicativo:  
 ```bash
 python main.py
-```
+```  
 
 ---
 
-## Como Usar
+## 📘 Como Usar  
 
-### Tela de Login e Cadastro
+### 🔑 Tela de Login e Cadastro  
+- **Login:** Informe usuário e senha para entrar.  
+- **Cadastro:** Informe usuário, e-mail, senha e confirmação da senha.  
+- Opção de **mostrar/ocultar senha** disponível.  
 
-* **Login:** Informe seu usuário e senha para acessar o sistema. É possível mostrar ou esconder a senha.
-* **Cadastro:** Crie um novo usuário informando usuário, email, senha e confirmação da senha. Também é possível mostrar ou esconder as senhas.
+### 📚 Gerenciamento de Matérias e Avaliações  
+1. Clique em **+ Matéria** e adicione o nome da disciplina.  
+2. Clique em **+ Avaliação** e preencha:  
+   - Matéria  
+   - Tipo (Trabalho, Prova, Projeto, Atividade)  
+   - Status (pendente, concluído etc.)  
+   - Título da avaliação  
+   - Data da entrega  
+   - Nota (opcional)  
+3. Todas as avaliações aparecem na **lista principal**.  
+4. Use **Remover Avaliação** para deletar a última avaliação cadastrada.  
 
-### Gerenciamento de Matérias e Avaliações
-
-1. **Adicionar Matéria:** Clique em **+ Matéria** e informe o nome da matéria.
-2. **Adicionar Avaliação:** Clique em **+ Avaliação**, selecione a matéria, tipo de avaliação, status, título, data e nota (opcional).
-3. **Visualizar Avaliações:** Todas as avaliações cadastradas aparecem na lista principal.
-4. **Remover Avaliação:** Utilize o botão **Remover Avaliação** para deletar a última avaliação cadastrada.
-
-### Calculadora de Média
-
-* Abra a calculadora, insira suas notas e clique em **Calcular Média**.
-* É possível adicionar ou remover campos conforme necessário.
+### 🧮 Calculadora de Média  
+- Adicione suas notas nos campos.  
+- Clique em **Calcular Média** para obter o resultado.  
+- É possível adicionar/remover quantos campos forem necessários.  
 
 ---
 
-## Estrutura do Projeto
+## 📂 Estrutura do Projeto  
 
 ```
 gerenciador-avaliacoes/
 │
 ├── main.py               # Código principal do aplicativo
 ├── usuarios.txt          # Armazena os usuários cadastrados (gerado automaticamente)
-├── unimar.png            # Logo utilizada no login
+├── unimar.png            # Logo exibida na tela de login
 ├── README.md             # Documentação do projeto
 └── LICENSE               # Licença MIT
 ```
 
 ---
 
-## Licença
 
-Este projeto está licenciado sob a **Licença MIT**. Consulte o arquivo `LICENSE` para mais informações.
+## 📌 Possíveis Melhorias Futuras  
+
+- [ ] Adicionar suporte a **banco de dados SQLite** (substituindo `usuarios.txt`).  
+- [ ] Permitir **edição de avaliações já cadastradas**.  
+- [ ] Notificações de **prazos próximos**.  
+- [ ] Exportação das avaliações em **PDF/Excel**.  
+- [ ] Sistema de **filtros e pesquisa** por matéria/tipo/status.  
+
+---
+
+## 📜 Licença  
+
+Este projeto está licenciado sob a **Licença MIT**.  
+Consulte o arquivo [`LICENSE`](LICENSE) para mais informações.  
